@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+
+<div class = "row">
+        <div class="col-md-10 offset-md-3">
+            <div class="col-lg-8">
+                <br>
+                <h2 style="color:darkcyan">Makaleler</h2>
+                <hr color="darkcyan">
+                <br>
+                </div>
+
+
+            </div>
+
+
+</div>
+
+
+
+
+<div class = "row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+<form>
+
+  {% csrf_token %}
+  <input type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="Makale Başlığında Ara...">
+  <button type="submit" class="btn btn-success">Ara</button>&emsp;&emsp;&emsp;&nbsp;
+  <input type="text" name = "keyword2" class="input-sm" maxlength="64" placeholder="Makale İçeriğinde Ara...">
+  <button type="submit" class="btn btn-warning">Ara</button>
+
+</form>
+  
+        </div>
+
+    </div>
+
+     
+</div>
+<br>
+
+{% if articles %}
+
+{% for article in articles  %}
+
+<div class="row">
+    <div class="col-md-10 offset-md-3">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <a href="{% url 'article:detail' article.id %}"><h3 class="mt-4">{{article.title}}</h3></a>
+      <hr>
+
+      <!-- Author -->
+      <p class="lead">
+        
+        {{article.author.username}} tarafından yayınlandı
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <hr>
+      <p>{{article.created_date}}</p>
+
+      <hr>
+
+      <!-- Preview Image -->
+      {% if article.article_image %}
+      <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt=""></a>
+      
+      
+      
+
+      {% endif %}
+      
+
+      <hr>
+
+      <!-- Post Content -->
+      <p class="lead">
+
+      {{article.content|safe|truncatewords:3}}
+
+      </p>
+
+      <a style = "float :right;" href="{% url 'article:detail' article.id %}" class="btn btn-danger">Devamını Oku</a>
+      <br>
+      <hr color="tomato">
+
+          
+      
+
+    </div>
+    </div>
+
+    
+
+  </div>
+
+
+{% endfor %}
+
+
+
+{% else %}
+<br>
+<div class = "row">
+    <div class="col-md-10 offset-md-3">
+        <div class="col-lg-8">
+
+  <div class ="alert alert-danger"><strong>
+       
+    Makale bulunamadı !
+                  
+        </strong>
+  </div>
+         </div>
+   </div>
+</div>
+{% endif %}
+
+{% endblock body %}
+
+

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<br>
+<div class ="jumbotron text-center">
+        
+        <h3>EE Bloğuna Hoşgeldiniz</h3>
+        <br>
+        <p>EE bloğu bir <strong style="color:tomato">django</strong> deneme projesidir.</p>
+</div>
+
+
+<p>
+        {% if request.user.is_authenticated %}
+
+                Hoşgeldiniz, <strong>{{request.user.username}}</strong>
+
+        
+        {% else %}
+
+                
+
+
+        {% endif %}
+
+
+
+</p>
+
+
+{% endblock body %}
+
